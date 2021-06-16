@@ -1,12 +1,12 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: hw1job-${BUILD_ID}
+  name: hw1job-BUILDID
 spec:
   backoffLimit: 1
   template:
     spec:
       containers:
-      - name: hw1container-${BUILD_ID}
+      - name: hw1container-BUILDID
         image: multiflexer/java-app:hw1
       restartPolicy: Never
