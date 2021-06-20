@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage("Build App") {
             steps {
-                sh 'docker build -t multiflexer/java-app .'
+                sh 'docker build -t multiflexer/java-app-hw2 .'
             }
         }
         stage("Tests") {
@@ -16,7 +16,7 @@ pipeline {
             }
             agent {
                 docker {
-                    image 'multiflexer/java-app'
+                    image 'multiflexer/java-app-hw2'
                     label 'docker'
                 }
             }
