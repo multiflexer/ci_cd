@@ -26,6 +26,18 @@ pipeline {
                 '''
             }
         }
+        stage("Scan") {
+            when {
+                not {
+                    branch 'master'
+                }
+            }
+            steps {
+            sh '''
+            trivy image multiflexer/java-app-hw2
+            '''
+            }
+        }
     }
     post {
         cleanup {
