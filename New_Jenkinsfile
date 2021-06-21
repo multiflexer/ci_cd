@@ -21,7 +21,7 @@ pipeline {
                 }
             }
             steps {
-            paralell ('java-test':{
+            parallel ('java-test':{
             node('re_docker'){
                 sh '''
                 mvn test
