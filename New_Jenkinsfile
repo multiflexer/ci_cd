@@ -14,15 +14,15 @@ pipeline {
                     branch 'master'
                 }
             }
+            steps {
+            parallel ('java-test':{
+            node('docker'){
             agent {
                 docker {
                     image 'multiflexer/java-app-hw2'
                     label 'docker'
                 }
             }
-            steps {
-            parallel ('java-test':{
-            node('re_docker'){
                 sh '''
                 mvn test
                 '''
