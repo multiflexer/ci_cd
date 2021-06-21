@@ -17,10 +17,10 @@ pipeline {
             steps {
             parallel ('java-test':{
             node('docker'){
-            docker {
+            //docker {
                     image 'multiflexer/java-app-hw2'
-                    label 'docker'
-            }
+            //        label 'docker'
+           // }
                 sh '''
                 mvn test
                 '''
