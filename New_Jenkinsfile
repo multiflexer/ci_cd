@@ -17,7 +17,7 @@ pipeline {
             steps {
             parallel ('java-test':{
             node('docker'){
-            agent {
+            docker {
                     image 'multiflexer/java-app-hw2'
                     label 'docker'
             }
