@@ -3,11 +3,11 @@ pipeline {
         label 'docker'
     }
     stages {
-        stage("Build App") {
-            steps {
+        //stage("Build App") {
+        //    steps {
         //        sh 'docker build -t multiflexer/java-app-hw2 .'
-            }
-        }
+        //    }
+        //}
         stage("Test and Scan parallel"){
         parallel {
         stage("Tests") {
