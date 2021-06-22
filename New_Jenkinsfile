@@ -8,35 +8,40 @@ pipeline {
                 sh 'docker build -t multiflexer/java-app-hw2 .'
             }
         }
+        stage("Test and Scan parallel"){
+        parallel {
         stage("Tests") {
             when {
                 not {
                     branch 'master'
                 }
             }
-            steps {
-            parallel ('java-test':{
-            node('docker'){
-            //docker {
+            agent {
+                docker {
                     image 'multiflexer/java-app-hw2'
-            //        label 'docker'
-           // }
+                    label 'docker'
+                }
+            }
+            steps {
                 sh '''
                 mvn test
                 '''
             }
-            },
-            'scan':{
-            node('docker'){
-                sh '''
-                trivy image multiflexer/java-app-hw2
-                '''
+        }
+        stage("Scan") {
+            when {
+                not {
+                    branch 'master'
+                }
             }
-            }
-            )
+            steps {
+            sh '''
+            trivy image multiflexer/java-app-hw2
+            '''
             }
         }
-        
+        }
+        }
     }
     post {
         cleanup {
