@@ -9,8 +9,11 @@ pipeline {
                     def NS = input(id: 'Input_ns', message: 'Please, enter the namespace:', parameters: [choice(choices: ['maloglazov'], name: 'KUBENAMESPACE')])
                     //def ns = inputData.KUBENAMESPACE?:''
                     echo ("NS is ${NS}")
+                    environment {
+                    KUBENAMESPACE = $NS
+                    }
                 }
-                sh 'echo $NS'
+                sh 'printenv'
                 sh 'docker build -t multiflexer/java-app-hw2 .'
             }
         }
