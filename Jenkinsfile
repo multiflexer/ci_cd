@@ -4,10 +4,11 @@ pipeline {
     }
     stages {
         stage("Build App") {
-            input message: 'Please, enter the namespace:', parameters: [choice(choices: ['maloglazov'], name: 'KUBENAMESPACE')]
             steps { 
-                sh 'echo ${KUBENAMESPACE}'
-                sh 'printenv'
+                script {
+                    def inputData = input(input id: 'Input_ns', message: 'Please, enter the namespace:', parameters: [choice(choices: ['maloglazov'], name: 'KUBENAMESPACE')])
+                }
+                sh 'echo inputData["KUBENAMESPACE"]'
                 sh 'docker build -t multiflexer/java-app-hw2 .'
             }
         }
