@@ -2,17 +2,15 @@ pipeline {
     agent {
         label 'docker'
     }
-    environment {
-        KUBENAMESPACE='lalala'
-    }
     stages {
         stage("Build App") {
             steps { 
-                //script {
+                script {
                     def NS = input(id: 'Input_ns', message: 'Please, enter the namespace:', parameters: [choice(choices: ['maloglazov'], name: 'KUBENAMESPACE')])
-                    //echo ("NS is ${NS}")
-                    //env.KUBENAMESPACE=NS
-                //}
+                    echo ("NS is ${NS}")
+                    env.KUBENAMESPACE='1lala'
+                    KUBENAMESPACE='2lalal'
+                }
                 sh 'echo $KUBENAMESPACE'
                 sh 'printenv'
                 sh 'docker build -t multiflexer/java-app-hw2 .'
