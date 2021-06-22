@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage("Build App") {
             steps {
-                sh 'docker build -t multiflexer/java-app-hw2 .'
+        //        sh 'docker build -t multiflexer/java-app-hw2 .'
             }
         }
         stage("Test and Scan parallel"){
@@ -13,7 +13,7 @@ pipeline {
         stage("Tests") {
             when {
                 not {
-                    branch 'master'
+                    branch 'main'
                 }
             }
             agent {
@@ -31,7 +31,7 @@ pipeline {
         stage("Scan") {
             when {
                 not {
-                    branch 'master'
+                    branch 'main'
                 }
             }
             steps {
@@ -45,7 +45,7 @@ pipeline {
         stage('Docker push'){
              when {
                  not {
-                     branch 'master'
+                     branch 'main'
                  }
              }
             steps{
@@ -67,7 +67,7 @@ pipeline {
                 echo ("NS is ${NS}")
                 env.KUBENAMESPACE="${NS}"
             }
-            withKubeConfig(credentialsId: 'kube_cred_1') {
+            withCredentials([kubeconfigFile(credentialsId: 'kube_cred_1', variable: 'KUBECONFIG')]) {    
                 sh 'echo "This is NS!!${KUBENAMESPACE}"'//'kubectl -n ${KUBENAMESPACE} apply -f Job.yaml'   
             }
         }
