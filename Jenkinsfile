@@ -3,7 +3,7 @@ pipeline {
         label 'docker'
     }
     environment {
-        KUBENAMESPACE=''
+        KUBENAMESPACE='lalala'
     }
     stages {
         stage("Build App") {
