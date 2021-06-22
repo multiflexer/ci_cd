@@ -10,7 +10,7 @@ pipeline {
                     //def ns = inputData.KUBENAMESPACE?:''
                     echo ("NS is ${NS}")
                 }
-                sh 'echo NS'
+                sh 'echo $NS'
                 sh 'docker build -t multiflexer/java-app-hw2 .'
             }
         }
