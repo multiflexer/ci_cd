@@ -8,7 +8,7 @@ pipeline {
                 script {
                     def NS = input(id: 'Input_ns', message: 'Please, enter the namespace:', parameters: [choice(choices: ['maloglazov'], name: 'KUBENAMESPACE')])
                     echo ("NS is ${NS}")
-                    KUBENAMESPACE = $NS
+                    KUBENAMESPACE = ${NS}
                 }
                 sh 'echo $KUBENAMESPACE'
                 sh 'printenv'
