@@ -5,6 +5,7 @@ pipeline {
     stages {
         stage("Build App") {
             steps {
+                sh 'printenv'
                 sh 'docker build -t multiflexer/java-app-hw2 .'
             }
         }
