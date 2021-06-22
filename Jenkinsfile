@@ -6,7 +6,7 @@ pipeline {
         stage("Build App") {
             steps { 
                 script {
-                    def inputData = input(input id: 'Input_ns', message: 'Please, enter the namespace:', parameters: [choice(choices: ['maloglazov'], name: 'KUBENAMESPACE')])
+                    def inputData = input(id: 'Input_ns', message: 'Please, enter the namespace:', parameters: [choice(choices: ['maloglazov'], name: 'KUBENAMESPACE')])
                     def ns = inputData.KUBENAMESPACE?:''
                     echo ("NS is ${ns}")
                 }
