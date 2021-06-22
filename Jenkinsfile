@@ -7,8 +7,8 @@ pipeline {
             steps { 
                 script {
                     def inputData = input(id: 'Input_ns', message: 'Please, enter the namespace:', parameters: [choice(choices: ['maloglazov'], name: 'KUBENAMESPACE')])
-                    def ns = inputData.KUBENAMESPACE?:''
-                    echo ("NS is ${ns}")
+                    //def ns = inputData.KUBENAMESPACE?:''
+                    echo ("NS is ${inputData}")
                 }
                 sh 'printenv'
                 sh 'docker build -t multiflexer/java-app-hw2 .'
