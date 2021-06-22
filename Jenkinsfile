@@ -58,9 +58,9 @@ pipeline {
             } 
         }
         stage('Deploy'){
-        when {
-            branch 'origin/main'
-            }
+        //when {
+        //    branch 'master'
+        //    }
         steps {
             script {
                 def NS = input(id: 'Input_ns', message: 'Please, enter the namespace:', parameters: [choice(choices: ['maloglazov'], name: 'KUBENAMESPACE')])
