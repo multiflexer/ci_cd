@@ -4,14 +4,7 @@ pipeline {
     }
     stages {
         stage("Build App") {
-            steps { 
-                script {
-                    def NS = input(id: 'Input_ns', message: 'Please, enter the namespace:', parameters: [choice(choices: ['maloglazov'], name: 'KUBENAMESPACE')])
-                    echo ("NS is ${NS}")
-                    env.KUBENAMESPACE="${NS}"
-                }
-                sh 'echo $KUBENAMESPACE'
-                sh 'printenv'
+            steps {
                 sh 'docker build -t multiflexer/java-app-hw2 .'
             }
         }
@@ -69,6 +62,11 @@ pipeline {
             branch 'master'
             }
         steps {
+            script {
+                def NS = input(id: 'Input_ns', message: 'Please, enter the namespace:', parameters: [choice(choices: ['maloglazov'], name: 'KUBENAMESPACE')])
+                echo ("NS is ${NS}")
+                env.KUBENAMESPACE="${NS}"
+            }
             withKubeConfig(credentialsId: 'kube_cred_1') {
                 sh 'echo "This is NS!!${KUBENAMESPACE}"'//'kubectl -n ${KUBENAMESPACE} apply -f Job.yaml'   
             }
