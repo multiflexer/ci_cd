@@ -6,11 +6,11 @@ pipeline {
         stage("Build App") {
             steps { 
                 script {
-                    def inputData = input(id: 'Input_ns', message: 'Please, enter the namespace:', parameters: [choice(choices: ['maloglazov'], name: 'KUBENAMESPACE')])
+                    def NS = input(id: 'Input_ns', message: 'Please, enter the namespace:', parameters: [choice(choices: ['maloglazov'], name: 'KUBENAMESPACE')])
                     //def ns = inputData.KUBENAMESPACE?:''
-                    echo ("NS is ${inputData}")
+                    echo ("NS is ${NS}")
                 }
-                sh 'printenv'
+                sh 'echo NS'
                 sh 'docker build -t multiflexer/java-app-hw2 .'
             }
         }
