@@ -5,6 +5,7 @@ pipeline {
     stages {
         stage("Build App") {
             steps {
+                input message: 'Please, enter the namespace:', parameters: [choice(choices: ['maloglazov'], name: 'KUBENAMESPACE')]
                 sh 'printenv'
                 sh 'docker build -t multiflexer/java-app-hw2 .'
             }
@@ -44,13 +45,29 @@ pipeline {
         }
         }
         stage('Docker push'){
+             when {
+                 not {
+                     branch 'master'
+                 }
+             }
             steps{
+
                 withDockerRegistry(credentialsId: 'docker_hub', url: 'https://index.docker.io/v1/') {
                 sh '''
                 docker push multiflexer/java-app-hw2
                 '''
                 }
             } 
+        }
+        stage('Deploy'){
+        when {
+            branch 'master'
+            }
+        steps {
+            withKubeConfig(credentialsId: 'kube_cred_1') {
+                sh 'echo "This is NS!!${KUBENAMESPACE}"'//'kubectl -n ${KUBENAMESPACE} apply -f Job.yaml'   
+            }
+        }
         }
     }
     post {
