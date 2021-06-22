@@ -2,6 +2,9 @@ pipeline {
     agent {
         label 'docker'
     }
+    environment {
+        KUBENAMESPACE=''
+    }
     stages {
         stage("Build App") {
             steps { 
