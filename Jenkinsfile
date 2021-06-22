@@ -5,9 +5,12 @@ pipeline {
     stages {
         stage("Build App") {
             steps {
+                sh 'printenv'
                 sh 'docker build -t multiflexer/java-app-hw2 .'
             }
         }
+        stage("Test and Scan parallel"){
+        parallel {
         stage("Tests") {
             when {
                 not {
@@ -37,6 +40,17 @@ pipeline {
             trivy image multiflexer/java-app-hw2
             '''
             }
+        }
+        }
+        }
+        stage('Docker push'){
+            steps{
+                withDockerRegistry(credentialsId: 'docker_hub', url: 'https://index.docker.io/v1/') {
+                sh '''
+                docker push multiflexer/java-app-hw2
+                '''
+                }
+            } 
         }
     }
     post {
