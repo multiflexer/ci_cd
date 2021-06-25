@@ -1,0 +1,4 @@
+container:
+        image: multiflexer/java-app:hw1
+        name: hw2-container
+jobname: hw2-job
