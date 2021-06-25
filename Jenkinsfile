@@ -24,7 +24,7 @@ pipeline {
             }
             steps {
                 sh '''
-                mvn test
+                mvn test | grep "Tests run" > /var/jenkins_home/test_output.txt
                 '''
             }
         }
@@ -36,7 +36,7 @@ pipeline {
             }
             steps {
             sh '''
-            trivy image multiflexer/java-app-hw2
+            trivy image --output /var/jenkins_home/trivy_output.txt multiflexer/java-app-hw2
             '''
             }
         }
